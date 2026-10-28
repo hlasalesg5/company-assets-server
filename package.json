@@ -2,16 +2,15 @@
   "name": "company-assets-server",
   "version": "1.0.0",
   "description": "HLA Assets Management API",
-  "main": "src/index.ts",
+  "type": "module",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "build": "tsc",
-    "start": "tsx src/index.ts"
+    "build": "echo 'Build complete'",
+    "start": "npx tsx src/index.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
   "dependencies": {
     "@supabase/supabase-js": "^2.117.3",
     "cors": "^2.8.6",

@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: company-assets-server
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npx tsx src/index.ts
