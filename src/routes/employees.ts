@@ -15,10 +15,15 @@ router.get("/", async (req, res) => {
 
 // POST a new employee
 router.post("/", async (req, res) => {
-    const { employee_id, name, email, department } = req.body;
+    const { name, email, department } = req.body;
+
+    if (!name) {
+        return res.status(400).json({ error: "Name is required" });
+    }
+
     const { data, error } = await supabase
         .from("employees")
-        .insert([{ employee_id, name, email, department }])
+        .insert([{ name, email, department }])
         .select();
 
     if (error) return res.status(500).json({ error: error.message });
