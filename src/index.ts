@@ -15,7 +15,28 @@ import { requireAuth } from "./middleware/auth";
 dotenv.config({ path: path.join(__dirname, "../.env") });
 
 const app = express();
-app.use(cors({ origin: "http://localhost:5173" }));
+
+const allowedOrigins = [
+  "http://localhost:5173",
+  process.env.CLIENT_URL,
+].filter(Boolean) as string[];
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+      if (
+        allowedOrigins.length === 0 ||
+        allowedOrigins.includes(origin) ||
+        origin.endsWith(".vercel.app")
+      ) {
+        return callback(null, true);
+      }
+      return callback(new Error(`CORS policy blocked access from ${origin}`));
+    },
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 // Public Auth routes
